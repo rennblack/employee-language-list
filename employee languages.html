@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<style>
+	table {
+		font-family: Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+		box-shadow: 5px 5px #cccccc;
+	}
+
+	td, th {
+		border: 1px solid black;
+		padding: 8px;
+	}
+
+	th {
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+
+</style>
+<head>
+<title>ES6 Destructuring</title>
+</head>
+	<body>	
+		<h1>Employee List</h1>
+		<div id="output"></div>
+		<table>
+			<thead>
+			<tr>
+				<th>Name</th>
+				<th>Date of Birth</th>
+				<th>Native Language</th>
+				<th>Fluent Language</th>
+				<th>Intermediate Language</th>
+			</tr>
+			</thead>
+			<tbody id="userData"></tbody>
+		</table>
+
+		<script>	
+		
+		var userList = {
+			"people": [
+				{ firstName: "Fred",
+				lastName: "Smith",
+				dateOfBirth: 1980,
+				spokenLanguages: {
+				native: "English",
+				fluent: "Spanish",
+				intermediate: "Chinese" }
+				},
+				{ firstName: "Monica",
+				lastName: "Taylor",
+				dateOfBirth: 1975,
+				spokenLanguages: {
+				native: "Spanish",
+				fluent: "English",
+				intermediate: "French" }
+				},
+				{ firstName: "Maurice",
+				lastName: "Edelson",
+				dateOfBirth: 1992,
+				spokenLanguages: {
+				native: "English",
+				fluent: "Spanish"}
+				},
+				{ firstName: "Kelly",
+				lastName: "Lang",
+				dateOfBirth: 1982,
+				spokenLanguages: {
+				native: "English",
+				fluent: "German",
+				intermediate: "Dutch" }
+				}
+			]
+			};
+
+			let users = userList.people;
+			
+			window.onload = () => {
+				loadUserList(users);
+			}
+
+		function loadUserList(users) {
+			const tableBody = document.getElementById("userData");
+			let dataHtml = "";
+			
+			for(const user of users) {
+			let [{ firstName, lastName, dateOfBirth, spokenLanguages: { native, fluent, intermediate } } ]  = users;	
+			
+			let fullName = user.firstName + " " + user.lastName;
+			if (typeof user.spokenLanguages.intermediate == "undefined"){
+				user.spokenLanguages.intermediate = "None";
+			}
+			dataHtml += `<tr><td>${fullName}</td><td>${user.dateOfBirth}</td><td>${user.spokenLanguages.native}</td><td>${user.spokenLanguages.fluent}</td><td>${user.spokenLanguages.intermediate}</td></tr>`;
+			
+			}
+			
+			tableBody.innerHTML = dataHtml;
+		};
+
+		</script>
+	</body>
+</html>
